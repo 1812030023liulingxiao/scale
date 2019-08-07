@@ -5,6 +5,9 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:myapp/main.dart';
 import 'package:amap_location/amap_location.dart';
+import 'package:location_permissions/location_permissions.dart';
+
+
 
 class GoPage extends StatefulWidget {
   GoPage({Key key}) : super(key: key);
@@ -19,26 +22,35 @@ class _GoPageState extends State<GoPage> {
   String loca1;
   String loca2;
   String loca3;
+  String loca4;
   @override
   void initState() {
     super.initState();
     //测试ip刷新一下页面
-    
-      main();
-      weizhi();
+    opensdk();
+    main();
+    weizhi();
   }
 
+
+PermissionStatus permission1;
+PermissionStatus permission2;
+
+opensdk()async{
+   await AMapLocationClient.startup(new AMapLocationOption( desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters  ));
+   //打开sdk
+}
+
   weizhi() async {
-    bool open = await AMapLocationClient.startup(new AMapLocationOption(
-        desiredAccuracy: CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
-    if (open == true) {
+   PermissionStatus permission2= await LocationPermissions().checkPermissionStatus();//检查许可
+    if(permission2==PermissionStatus.granted)
+    {
       AMapLocationClient.getLocation(true).then((address){
         loca1 = address.latitude.toStringAsFixed(2);
         loca2 = address.longitude.toStringAsFixed(2);
         loca3=address.city.toString();
         print("$loca3:($loca2 ， $loca1)");
       });
-    }
      AMapLocationClient.onLocationUpate.listen((AMapLocation address){
       if(!mounted)return;
       else setState(() {
@@ -49,6 +61,34 @@ class _GoPageState extends State<GoPage> {
       });
     });
     AMapLocationClient.startLocation();
+    }
+    else{
+        PermissionStatus permission1 = await LocationPermissions().requestPermissions();//请求许可
+        if(permission1 ==PermissionStatus.granted){
+           AMapLocationClient.getLocation(true).then((address){
+        loca1 = address.latitude.toStringAsFixed(2);
+        loca2 = address.longitude.toStringAsFixed(2);
+        loca3=address.city.toString();
+
+        print("$loca3:($loca2 ， $loca1)");
+      });
+     AMapLocationClient.onLocationUpate.listen((AMapLocation address){
+      if(!mounted)return;
+      else setState(() {
+         loca1 = address.latitude.toStringAsFixed(2);
+        loca2 = address.longitude.toStringAsFixed(2);
+        loca3=address.city.toString();
+         weizhi();
+      });
+    });
+    AMapLocationClient.startLocation();
+         }
+         if(permission1 !=PermissionStatus.granted){
+           loca3="Error";
+           loca2="No Permission";
+           loca1="";
+         }
+    }
   }
 
   main() async {
