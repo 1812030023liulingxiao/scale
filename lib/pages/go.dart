@@ -24,8 +24,8 @@ class _GoPageState extends State<GoPage> {
     super.initState();
     //测试ip刷新一下页面
     
-    weizhi();
       main();
+      weizhi();
   }
 
   weizhi() async {
@@ -39,13 +39,16 @@ class _GoPageState extends State<GoPage> {
         print("$loca3:($loca2 ， $loca1)");
       });
     }
-     AMapLocationClient.onLocationUpate.listen((AMapLocation loc){
+     AMapLocationClient.onLocationUpate.listen((AMapLocation address){
       if(!mounted)return;
-      setState(() {
-         AMapLocationClient.startLocation();
+      else setState(() {
+         loca1 = address.latitude.toStringAsFixed(2);
+        loca2 = address.longitude.toStringAsFixed(2);
+        loca3=address.city.toString();
+         weizhi();
       });
     });
-    
+    AMapLocationClient.startLocation();
   }
 
   main() async {
