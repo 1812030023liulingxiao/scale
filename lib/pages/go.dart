@@ -41,9 +41,9 @@ opensdk()async{
    //打开sdk
 }
 
-  weizhi() async {
-   PermissionStatus permission2= await LocationPermissions().checkPermissionStatus();//检查许可
-    if(permission2==PermissionStatus.granted)
+
+gain_address()async{
+  if(permission2==PermissionStatus.granted)
     {
       AMapLocationClient.getLocation(true).then((address){
         loca1 = address.latitude.toStringAsFixed(2);
@@ -62,7 +62,7 @@ opensdk()async{
     });
     AMapLocationClient.startLocation();
     }
-    else{
+     else{
         PermissionStatus permission1 = await LocationPermissions().requestPermissions();//请求许可
         if(permission1 ==PermissionStatus.granted){
            AMapLocationClient.getLocation(true).then((address){
@@ -78,7 +78,6 @@ opensdk()async{
          loca1 = address.latitude.toStringAsFixed(2);
         loca2 = address.longitude.toStringAsFixed(2);
         loca3=address.city.toString();
-         weizhi();
       });
     });
     AMapLocationClient.startLocation();
@@ -87,8 +86,18 @@ opensdk()async{
            loca3="Error";
            loca2="No Permission";
            loca1="";
+           setState(() {
+            gain_address(); 
+           });
          }
     }
+}
+
+  weizhi() async {
+   PermissionStatus permission2= await LocationPermissions().checkPermissionStatus();//检查许可
+   setState(() {
+    gain_address(); 
+   });
   }
 
   main() async {
@@ -122,7 +131,6 @@ opensdk()async{
     setState(() {
 
     });
-    
   }
 
   @override
