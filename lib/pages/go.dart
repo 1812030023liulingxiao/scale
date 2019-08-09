@@ -3,7 +3,6 @@ import 'speedtest.dart';
 import 'package:connectivity/connectivity.dart';
 import 'dart:io';
 import 'dart:convert';
-import 'package:myapp/main.dart';
 import 'package:amap_location/amap_location.dart';
 import 'package:location_permissions/location_permissions.dart';
 
@@ -28,7 +27,7 @@ class _GoPageState extends State<GoPage> {
     super.initState();
     //测试ip刷新一下页面
     opensdk();
-    main();
+    getip();
     weizhi();
   }
 
@@ -42,7 +41,7 @@ opensdk()async{
 }
 
 
-gain_address()async{
+gainaddress()async{
   if(permission2==PermissionStatus.granted)
     {
       AMapLocationClient.getLocation(true).then((address){
@@ -70,7 +69,7 @@ gain_address()async{
         loca2 = address.longitude.toStringAsFixed(2);
         loca3=address.city.toString();
 
-        print("$loca3:($loca2 ， $loca1)");
+        print("$loca3 :($loca2 ， $loca1)");
       });
      AMapLocationClient.onLocationUpate.listen((AMapLocation address){
       if(!mounted)return;
@@ -87,7 +86,7 @@ gain_address()async{
            loca2="No Permission";
            loca1="";
            setState(() {
-            gain_address(); 
+            gainaddress(); 
            });
          }
     }
@@ -96,11 +95,11 @@ gain_address()async{
   weizhi() async {
    PermissionStatus permission2= await LocationPermissions().checkPermissionStatus();//检查许可
    setState(() {
-    gain_address(); 
+    gainaddress(); 
    });
   }
 
-  main() async {
+  getip() async {
     // 内网ip
     // for (var interface in await NetworkInterface.list()) {
     //   for (var addr in interface.addresses) {
@@ -128,9 +127,6 @@ gain_address()async{
       // 网络类型为WIFI
       type = 'wifi';
     }
-    setState(() {
-
-    });
   }
 
   @override
@@ -267,10 +263,10 @@ gain_address()async{
                       padding: EdgeInsets.only(right: 10.0),
                     ),
                     Text(
-                      "$loca3:($loca2,$loca1)",
+                      "$loca3: ($loca2,$loca1)",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 23.0,
+                        fontSize: 33.0,
                         fontWeight: FontWeight.w100,
                       ),
                     )
