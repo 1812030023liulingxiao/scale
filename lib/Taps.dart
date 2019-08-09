@@ -11,11 +11,6 @@ class Taps extends StatefulWidget {
 
 class _TapsState extends State<Taps> {
   int _currentIndex=0;
-  List _pageList=[
-    GoPage(),
-    HistoryPage(),
-    SettingPage()
-  ];
 
 void onPageChanged(int _currentIndex) {
     setState(() {
@@ -32,11 +27,6 @@ void onPageChanged(int _currentIndex) {
     SettingPage(),
   ];
 
-
-void _onItemTapped(int index) {
-    //bottomNavigationBar 和 PageView 关联
-    _pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve: Curves.ease);
-  }
 
 
   @override

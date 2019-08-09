@@ -100,10 +100,9 @@ class _NEIBUState extends State<NEIBU> {
   initState() {
     super.initState(); 
     _query('user.db', 'SELECT * FROM speedtest_table');
-    getHttp(downinterface);
-    const period = const Duration(seconds: 1); //测试过程，速度调大
+    /*const period = const Duration(seconds: 1); //测试过程，速度调大
     var i=0;
-    Timer.periodic(period, (timer) {
+     Timer.periodic(period, (timer) {
       //到时回调
       setState(() {
         i++;
@@ -115,7 +114,7 @@ class _NEIBUState extends State<NEIBU> {
         timer.cancel();
         timer = null;
       }
-    });
+    }); */
   }
 
   ///增
