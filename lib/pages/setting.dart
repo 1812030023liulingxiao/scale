@@ -58,7 +58,7 @@ class _SettingPageState extends State<SettingPage> {
                     height: 50,
                   ),
                   Container(
-                      width: 60.0,
+                      width: 50.0,
                       height: 50.0,
                       alignment: Alignment(0, 0),
                       decoration: new BoxDecoration(
@@ -77,17 +77,22 @@ class _SettingPageState extends State<SettingPage> {
 //Mbps
               Row(
                 children: <Widget>[
-                  RaisedButton(
-                    child: Container(
-                      width: 50.0,
+                  Container(
+                    width: 70.0,
+                    height: 50.0,
+                    alignment: Alignment(0, 0),
+                  child:RaisedButton(
+                    child:Container(
+                      
                       height: 50.0,
-                      alignment: Alignment(0, 0),
+                      alignment: Alignment(0, 0),                  
 //下划线颜色控制
                       decoration: new UnderlineTabIndicator(
                           borderSide: BorderSide(
                               width: 3.0,
                               color: speed[0] ? Color(0xff1FF8E8): Color.fromRGBO(21, 20, 36, 1)),
-                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
+                          insets: EdgeInsets.fromLTRB(-16, 0, -16, 0)
+                          ),
                       child: Text(
                         "Mbps",
                         style: TextStyle(
@@ -118,17 +123,23 @@ class _SettingPageState extends State<SettingPage> {
                       });
                     },
                   ),
+                    ),
 //MB/s
-                  RaisedButton(
+                  Container(
+                    width: 70.0,
+                    height: 50.0,
+                    alignment: Alignment(0, 0),
+                    child:RaisedButton(
                       child: Container(
-                        width: 50.0,
-                        height: 50.0,
+                        
+                        height: 45.0,
                         alignment: Alignment(0, 0),
                         decoration: new UnderlineTabIndicator(
                             borderSide: BorderSide(
                                 width: 3.0,
                                 color: speed[1] ? Color(0xff1FF8E8) : Color.fromRGBO(21, 20, 36, 1)),
-                            insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
+                             insets: EdgeInsets.fromLTRB(-16, 0, -16, 0)
+                            ),
                         child: Text(
                           "MB/s",
                           style: TextStyle(
@@ -158,18 +169,23 @@ class _SettingPageState extends State<SettingPage> {
                        }
                       });
                       }
+                    ),
                   ),
 //kB/s
-                  RaisedButton(
+                  Container(
+                    width: 70.0,
+                    height: 50.0,
+                    alignment: Alignment(0, 0),
+                    child:RaisedButton(
                     child: Container(
-                      width: 50.0,
+                      
                       height: 50.0,
                       alignment: Alignment(0, 0),
                       decoration: new UnderlineTabIndicator(
                           borderSide: BorderSide(
                               width: 3.0,
                               color:speed[2] ? Color(0xff1FF8E8): Color.fromRGBO(21, 20, 36, 1)),
-                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
+                          insets: EdgeInsets.fromLTRB(-16, 0, -16, 0)),
                       child: Text(
                         "kB/s",
                         style: TextStyle(
@@ -200,6 +216,7 @@ class _SettingPageState extends State<SettingPage> {
                       });
                     },
                   ),
+                  ),
                 ],
               ),
             ],
@@ -219,7 +236,7 @@ class _SettingPageState extends State<SettingPage> {
                     height: 50,
                   ),
                   Container(
-                      width: 60.0,
+                      width: 50.0,
                       height: 50.0,
                       alignment: Alignment(0, 0),
                       decoration: new BoxDecoration(
@@ -238,16 +255,20 @@ class _SettingPageState extends State<SettingPage> {
 //数字1                      
               Row(
                 children: <Widget>[
-                  RaisedButton(
+                  Container(
+                    width: 70.0,
+                    height: 50.0,
+                    alignment: Alignment(0, 0),
+                    child:RaisedButton(
                     child: Container(
-                      width: 50.0,
+                      
                       height: 50.0,
                       alignment: Alignment(0, 0),
                       decoration: new UnderlineTabIndicator(
                           borderSide: BorderSide(
                               width: 3.0,
                               color: values[0] ? Color(0xff1FF8E8) : Color.fromRGBO(21, 20, 36, 1)),
-                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
+                          insets: EdgeInsets.fromLTRB(-16, 0, -16, 0)),
                       child: Text(
                         "${dataone[0]}",
                         style: TextStyle(
@@ -274,17 +295,22 @@ class _SettingPageState extends State<SettingPage> {
                       });
                     },
                   ),
+                  ),          
 //数字2
-                  RaisedButton(
+                  Container(
+                    width: 70.0,
+                    height: 50.0,
+                    alignment: Alignment(0, 0),
+                    child:RaisedButton(
                     child: Container(
-                      width: 50.0,
+                      
                       height: 50.0,
                       alignment: Alignment(0, 0),
                       decoration: new UnderlineTabIndicator(
                           borderSide: BorderSide(
                               width: 3.0,
                               color: values[1] ? Color(0xff1FF8E8) : Color.fromRGBO(21, 20, 36, 1)),
-                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
+                          insets: EdgeInsets.fromLTRB(-16, 0, -16, 0)),
                       child: Text(
                         "${dataone[1]}",
                         style: TextStyle(
@@ -311,17 +337,22 @@ class _SettingPageState extends State<SettingPage> {
                       });
                     },
                   ),
+                  ),
 //数字3
-                  RaisedButton(
+                  Container(
+                    width: 70.0,
+                    height: 50.0,
+                    alignment: Alignment(0, 0),
+                    child:RaisedButton(
                     child: Container(
-                      width: 50.0,
+                      
                       height: 50.0,
                       alignment: Alignment(0, 0),
                       decoration: new UnderlineTabIndicator(
                           borderSide: BorderSide(
                               width: 3.0,
                               color: values[2] ? Color(0xff1FF8E8) : Color.fromRGBO(21, 20, 36, 1)),
-                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
+                          insets: EdgeInsets.fromLTRB(-16, 0, -16, 0)),
                       child: Text(
                         "${dataone[2]}",
                         style: TextStyle(
@@ -348,10 +379,13 @@ class _SettingPageState extends State<SettingPage> {
                       });
                     },
                   ),
+                  ),
+                  
                 ],
               ),
             ],
           ),
+
               //分割线///////////////
               Container(
                 decoration: new BoxDecoration(
