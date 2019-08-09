@@ -11,7 +11,11 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-
+  //判断是否选中第一行某个按钮
+  List<bool> speed=[true,false,false];
+  //判断是否选中第二行某个按钮
+  List<bool> values=[true,false,false];
+  List<int> dataone=[100,500,1000];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -70,14 +74,20 @@ class _SettingPageState extends State<SettingPage> {
                           fontWeight: FontWeight.w100,
                         ),
                       )),
-                  Container(
-                      width: 60.0,
+//Mbps
+              Row(
+                children: <Widget>[
+                  RaisedButton(
+                    child: Container(
+                      width: 50.0,
                       height: 50.0,
                       alignment: Alignment(0, 0),
-                      decoration: new BoxDecoration(
-                          border: new Border(
-                              bottom: Divider.createBorderSide(context,
-                                  width: 3.0, color: Color(0xff1FF8E8)))),
+//下划线颜色控制
+                      decoration: new UnderlineTabIndicator(
+                          borderSide: BorderSide(
+                              width: 3.0,
+                              color: speed[0] ? Color(0xff1FF8E8): Color.fromRGBO(21, 20, 36, 1)),
+                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
                       child: Text(
                         "Mbps",
                         style: TextStyle(
@@ -85,33 +95,81 @@ class _SettingPageState extends State<SettingPage> {
                           fontSize: 17.0,
                           fontWeight: FontWeight.w900,
                         ),
-                      )),
-                  Container(
-                      width: 60.0,
-                      height: 50.0,
-                      alignment: Alignment(0, 0),
-                      decoration: new BoxDecoration(
-                          border: new Border(
-                              bottom: Divider.createBorderSide(context,
-                                  width: 3.0,
-                                  color: Color.fromRGBO(21, 20, 36, 1)))),
-                      child: Text(
-                        "MB/s",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    color: Color.fromRGBO(21, 20, 36, 1),
+                    onPressed: () {
+                      setState(() {
+                       if(speed[0]==true){
+                         setState(() {
+                          speed[0]=false;
+                          
+                         });
+                       }else{
+                         setState(() {
+                           speed[1]=false;
+                           speed[2]=false;
+                           speed[0]=true;
+                           dataone[0]=100;
+                           dataone[1]=500;
+                           dataone[2]=1000;
+                         });
+                       }
+                      });
+                    },
+                  ),
+//MB/s
+                  RaisedButton(
+                      child: Container(
+                        width: 50.0,
+                        height: 50.0,
+                        alignment: Alignment(0, 0),
+                        decoration: new UnderlineTabIndicator(
+                            borderSide: BorderSide(
+                                width: 3.0,
+                                color: speed[1] ? Color(0xff1FF8E8) : Color.fromRGBO(21, 20, 36, 1)),
+                            insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
+                        child: Text(
+                          "MB/s",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.w900,
+                          ),
                         ),
-                      )),
-                  Container(
-                      width: 60.0,
+                      ),
+                      color: Color.fromRGBO(21, 20, 36, 1),
+                      onPressed: () {
+                        setState(() {
+                       if(speed[1]==true){
+                         setState(() {
+                          speed[1]=false;
+                          
+                         });
+                       }else{
+                         setState(() {
+                           speed[0]=false;
+                           speed[2]=false;
+                           speed[1]=true;
+                           dataone[0]=10;
+                           dataone[1]=50;
+                           dataone[2]=100;
+                         });
+                       }
+                      });
+                      }
+                  ),
+//kB/s
+                  RaisedButton(
+                    child: Container(
+                      width: 50.0,
                       height: 50.0,
                       alignment: Alignment(0, 0),
-                      decoration: new BoxDecoration(
-                          border: new Border(
-                              bottom: Divider.createBorderSide(context,
-                                  width: 3.0,
-                                  color: Color.fromRGBO(21, 20, 36, 1)))),
+                      decoration: new UnderlineTabIndicator(
+                          borderSide: BorderSide(
+                              width: 3.0,
+                              color:speed[2] ? Color(0xff1FF8E8): Color.fromRGBO(21, 20, 36, 1)),
+                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
                       child: Text(
                         "kB/s",
                         style: TextStyle(
@@ -119,9 +177,33 @@ class _SettingPageState extends State<SettingPage> {
                           fontSize: 17.0,
                           fontWeight: FontWeight.w900,
                         ),
-                      )),
+                      ),
+                    ),
+                    color: Color.fromRGBO(21, 20, 36, 1),
+                    onPressed: () {
+                      setState(() {
+                       if(speed[2]==true){
+                         setState(() {
+                          speed[2]=false;
+                          
+                         });
+                       }else{
+                         setState(() {
+                           speed[0]=false;
+                           speed[1]=false;
+                           speed[2]=true;
+                           dataone[0]=5000;
+                           dataone[1]=10000;
+                           dataone[2]=15000;
+                         });
+                       }
+                      });
+                    },
+                  ),
                 ],
               ),
+            ],
+          ),
               //分割线///////////////
               Container(
                 decoration: new BoxDecoration(
@@ -153,58 +235,123 @@ class _SettingPageState extends State<SettingPage> {
                           fontWeight: FontWeight.w100,
                         ),
                       )),
-                  Container(
-                      width: 60.0,
+//数字1                      
+              Row(
+                children: <Widget>[
+                  RaisedButton(
+                    child: Container(
+                      width: 50.0,
                       height: 50.0,
                       alignment: Alignment(0, 0),
-                      decoration: new BoxDecoration(
-                          border: new Border(
-                              bottom: Divider.createBorderSide(context,
-                                  width: 3.0, color: Color(0xff1FF8E8)))),
+                      decoration: new UnderlineTabIndicator(
+                          borderSide: BorderSide(
+                              width: 3.0,
+                              color: values[0] ? Color(0xff1FF8E8) : Color.fromRGBO(21, 20, 36, 1)),
+                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
                       child: Text(
-                        "100",
+                        "${dataone[0]}",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18.0,
+                          fontSize: 17.0,
                           fontWeight: FontWeight.w900,
                         ),
-                      )),
-                  Container(
-                      width: 60.0,
+                      ),
+                    ),
+                    color: Color.fromRGBO(21, 20, 36, 1),
+                    onPressed: () {
+                      setState(() {
+                        if(values[0]==true){
+                          setState(() {
+                            values[0]=false;
+                          });
+                        }else{
+                          setState(() {
+                            values[0]=true;
+                            values[1]=false;
+                            values[2]=false;
+                          });
+                        } 
+                      });
+                    },
+                  ),
+//数字2
+                  RaisedButton(
+                    child: Container(
+                      width: 50.0,
                       height: 50.0,
                       alignment: Alignment(0, 0),
-                      decoration: new BoxDecoration(
-                          border: new Border(
-                              bottom: Divider.createBorderSide(context,
-                                  width: 3.0,
-                                  color: Color.fromRGBO(21, 20, 36, 1)))),
+                      decoration: new UnderlineTabIndicator(
+                          borderSide: BorderSide(
+                              width: 3.0,
+                              color: values[1] ? Color(0xff1FF8E8) : Color.fromRGBO(21, 20, 36, 1)),
+                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
                       child: Text(
-                        "500",
+                        "${dataone[1]}",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18.0,
+                          fontSize: 17.0,
                           fontWeight: FontWeight.w900,
                         ),
-                      )),
-                  Container(
-                      width: 60.0,
+                      ),
+                    ),
+                    color: Color.fromRGBO(21, 20, 36, 1),
+                    onPressed: () {
+                      setState(() {
+                       if(values[1]==true){
+                         setState(() {
+                          values[1]=false;
+                         });
+                       }else{
+                         setState(() {
+                           values[1]=true;
+                           values[2]=false;
+                           values[0]=false;
+                         });
+                       }
+                      });
+                    },
+                  ),
+//数字3
+                  RaisedButton(
+                    child: Container(
+                      width: 50.0,
                       height: 50.0,
                       alignment: Alignment(0, 0),
-                      decoration: new BoxDecoration(
-                          border: new Border(
-                              bottom: Divider.createBorderSide(context,
-                                  width: 3.0,
-                                  color: Color.fromRGBO(21, 20, 36, 1)))),
+                      decoration: new UnderlineTabIndicator(
+                          borderSide: BorderSide(
+                              width: 3.0,
+                              color: values[2] ? Color(0xff1FF8E8) : Color.fromRGBO(21, 20, 36, 1)),
+                          insets: EdgeInsets.fromLTRB(-18, 0, -18, 0)),
                       child: Text(
-                        "1000",
+                        "${dataone[2]}",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18.0,
+                          fontSize: 17.0,
                           fontWeight: FontWeight.w900,
                         ),
-                      )),
+                      ),
+                    ),
+                    color: Color.fromRGBO(21, 20, 36, 1),
+                    onPressed: () {
+                      setState(() {
+                       if(values[2]==true){
+                         setState(() {
+                          values[2]=false;
+                         });
+                       }else{
+                         setState(() {
+                           values[2]=true;
+                           values[1]=false;
+                           values[0]=false;
+                         });
+                       }
+                      });
+                    },
+                  ),
                 ],
               ),
+            ],
+          ),
               //分割线///////////////
               Container(
                 decoration: new BoxDecoration(
