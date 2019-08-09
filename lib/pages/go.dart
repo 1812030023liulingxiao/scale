@@ -68,8 +68,10 @@ gainaddress()async{
         loca1 = address.latitude.toStringAsFixed(2);
         loca2 = address.longitude.toStringAsFixed(2);
         loca3=address.city.toString();
-
         print("$loca3 :($loca2 ， $loca1)");
+        setState(() {
+         gainaddress(); 
+        });
       });
      AMapLocationClient.onLocationUpate.listen((AMapLocation address){
       if(!mounted)return;
@@ -266,7 +268,7 @@ gainaddress()async{
                       "$loca3: ($loca2,$loca1)",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 33.0,
+                        fontSize: 23.0,
                         fontWeight: FontWeight.w100,
                       ),
                     )
