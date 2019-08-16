@@ -6,8 +6,6 @@ import 'dart:convert';
 import 'package:amap_location/amap_location.dart';
 import 'package:location_permissions/location_permissions.dart';
 
-
-
 class GoPage extends StatefulWidget {
   GoPage({Key key}) : super(key: key);
 
@@ -15,7 +13,6 @@ class GoPage extends StatefulWidget {
 }
 
 class _GoPageState extends State<GoPage> {
-
   String ipdizhi;
   String type;
   String loca1;
@@ -31,74 +28,59 @@ class _GoPageState extends State<GoPage> {
     weizhi();
   }
 
+  PermissionStatus permission1;
+  PermissionStatus permission2;
 
-PermissionStatus permission1;
-PermissionStatus permission2;
+  opensdk() async {
+    await AMapLocationClient.startup(new AMapLocationOption(
+        desiredAccuracy: CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
+    //打开sdk
+  }
 
-opensdk()async{
-   await AMapLocationClient.startup(new AMapLocationOption( desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters  ));
-   //打开sdk
-}
-
-
-gainaddress()async{
-  if(permission2==PermissionStatus.granted)
-    {
-      AMapLocationClient.getLocation(true).then((address){
+  gainaddress() async {
+    if (permission2 == PermissionStatus.granted) {
+      AMapLocationClient.getLocation(true).then((address) {
         loca1 = address.latitude.toStringAsFixed(2);
         loca2 = address.longitude.toStringAsFixed(2);
-        loca3=address.city.toString();
+        loca3 = address.city.toString();
         print("$loca3:($loca2 ， $loca1)");
-      });
-     AMapLocationClient.onLocationUpate.listen((AMapLocation address){
-      if(!mounted)return;
-      else setState(() {
-         loca1 = address.latitude.toStringAsFixed(2);
-        loca2 = address.longitude.toStringAsFixed(2);
-        loca3=address.city.toString();
-         weizhi();
-      });
-    });
-    AMapLocationClient.startLocation();
-    }
-     else{
-        PermissionStatus permission1 = await LocationPermissions().requestPermissions();//请求许可
-        if(permission1 ==PermissionStatus.granted){
-           AMapLocationClient.getLocation(true).then((address){
-        loca1 = address.latitude.toStringAsFixed(2);
-        loca2 = address.longitude.toStringAsFixed(2);
-        loca3=address.city.toString();
-        print("$loca3 :($loca2 ， $loca1)");
         setState(() {
          gainaddress(); 
         });
       });
-     AMapLocationClient.onLocationUpate.listen((AMapLocation address){
-      if(!mounted)return;
-      else setState(() {
-         loca1 = address.latitude.toStringAsFixed(2);
-        loca2 = address.longitude.toStringAsFixed(2);
-        loca3=address.city.toString();
-      });
-    });
-    AMapLocationClient.startLocation();
-         }
-         if(permission1 !=PermissionStatus.granted){
-           loca3="Error";
-           loca2="No Permission";
-           loca1="";
-           setState(() {
-            gainaddress(); 
-           });
-         }
+      AMapLocationClient.startLocation();
+    } else {
+      PermissionStatus permission1 =
+          await LocationPermissions().requestPermissions(); //请求许可
+      if (permission1 == PermissionStatus.granted) {
+        AMapLocationClient.getLocation(true).then((address) {
+          loca1 = address.latitude.toStringAsFixed(2);
+          loca2 = address.longitude.toStringAsFixed(2);
+          loca3 = address.city.toString();
+          print("$loca3 :($loca2 ， $loca1)");
+            setState(() {
+             gainaddress() ;
+            });
+        });
+        AMapLocationClient.startLocation();
+      }
+      if (permission1 != PermissionStatus.granted) {
+        loca3 = "Error";
+        loca2 = "No Permission";
+        loca1 = "";
+        setState(() {
+          gainaddress();
+        });
+      }
     }
-}
-
+  }
+//函数
   weizhi() async {
-   PermissionStatus permission2= await LocationPermissions().checkPermissionStatus();//检查许可
-   setState(() {
-    gainaddress(); 
-   });
+    PermissionStatus permission2 =
+        await LocationPermissions().checkPermissionStatus(); //检查许可
+    setState(() {
+      gainaddress();
+    });
   }
 
   getip() async {
@@ -124,7 +106,7 @@ gainaddress()async{
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
       // 网络类型为移动网
-      type = 'shuju';
+      type = '4G';
     } else if (connectivityResult == ConnectivityResult.wifi) {
       // 网络类型为WIFI
       type = 'wifi';
