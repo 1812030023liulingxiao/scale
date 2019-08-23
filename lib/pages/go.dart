@@ -26,6 +26,7 @@ class _GoPageState extends State<GoPage> {
     opensdk();
     getip();
     weizhi();
+    gainaddress();
   }
 
   PermissionStatus permission1;
@@ -43,12 +44,9 @@ class _GoPageState extends State<GoPage> {
         loca1 = address.latitude.toStringAsFixed(2);
         loca2 = address.longitude.toStringAsFixed(2);
         loca3 = address.city.toString();
+        setState(() {});
         print("$loca3:($loca2 ， $loca1)");
-        setState(() {
-         gainaddress(); 
-        });
       });
-      AMapLocationClient.startLocation();
     } else {
       PermissionStatus permission1 =
           await LocationPermissions().requestPermissions(); //请求许可
@@ -57,20 +55,15 @@ class _GoPageState extends State<GoPage> {
           loca1 = address.latitude.toStringAsFixed(2);
           loca2 = address.longitude.toStringAsFixed(2);
           loca3 = address.city.toString();
+          setState(() {});
           print("$loca3 :($loca2 ， $loca1)");
-            setState(() {
-             gainaddress() ;
-            });
         });
-        AMapLocationClient.startLocation();
       }
       if (permission1 != PermissionStatus.granted) {
         loca3 = "Error";
         loca2 = "No Permission";
         loca1 = "";
-        setState(() {
-          gainaddress();
-        });
+        setState(() {});
       }
     }
   }
@@ -78,9 +71,6 @@ class _GoPageState extends State<GoPage> {
   weizhi() async {
     PermissionStatus permission2 =
         await LocationPermissions().checkPermissionStatus(); //检查许可
-    setState(() {
-      gainaddress();
-    });
   }
 
   getip() async {
@@ -111,6 +101,7 @@ class _GoPageState extends State<GoPage> {
       // 网络类型为WIFI
       type = 'wifi';
     }
+     setState(() {});
   }
 
   @override
