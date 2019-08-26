@@ -59,7 +59,7 @@ class _GoPageState extends State<GoPage> {
           print("$loca3 :($loca2 ， $loca1)");
         });
       }
-      if (permission1 != PermissionStatus.granted) {
+      if (permission1 != PermissionStatus.granted){
         loca3 = "Error";
         loca2 = "No Permission";
         loca1 = "";
