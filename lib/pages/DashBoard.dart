@@ -57,7 +57,7 @@ class DashBoardState extends State<DashBoard> {
 
 //控制触发旋转的函数
   void boostSpeed() async {
-    for (int i = 0; i <= 8; i++) {
+    for (int i = 0; i <= 35; i++) {
       while (_isGetPressure) {
         if (pressures < 100) {
           setState(() {

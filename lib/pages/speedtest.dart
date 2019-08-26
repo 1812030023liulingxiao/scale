@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'DashBoard.dart';
 import 'Chart.dart';
 import 'package:intl/intl.dart';
-import 'package:dio/dio.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
+import 'SpeedtestMethod.dart';
+
 class SpeedtestPage extends StatefulWidget {
   SpeedtestPage({Key key}) : super(key: key);
 
@@ -46,75 +43,48 @@ class NEIBU extends StatefulWidget {
 }
 
 class _NEIBUState extends State<NEIBU> {
-  var _dateTime = DateTime.now();//获取当前时间
+  var _dateTime = DateTime.now(); //获取当前时间
   int info_id = 0;
   String _dbName = 'user.db'; //数据库名称
   String downloadchar = '0';
-  double download=0;
+  double download = 0;
   double upload = 0;
   int length = 0;
-  int point ;
-  int showtotal ;
-  String location;//记录上传地址
-  String downinterface =
-      'http://172.31.0.219:8080/speedtest/downloadFile?auth=Henu21'; //下载接口
-//获取body里面的内容
-  getHttp(String url) async {
-    var response = await http.post(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    var a = response.body.indexOf('http');
-    var n = response.body.lastIndexOf(new RegExp('(http|",)'));
-    print(a);
-    print(n);
-    location = response.body.substring(a, n);
-    print(location);
-    print(response.body);
-    downloadFile(location);
-  }
-
-  //下载文件
-  downloadFile(urlPath) async {
-    //这两行获取一个随机路径
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
-    print('下载到手机地址是：' + tempPath);
-    Response response;
-    Dio dio = new Dio();
-    try {
-      response = await dio.download(urlPath, tempPath + 'key',
-          onReceiveProgress: (int count, int total) {
-        //进度
-        point=count;
-        showtotal=total;
-        print("${(point / showtotal) * 100} %"); /* $count $total  */
-      });
-      print('downloadFile success---------${response.data}');
-    } on DioError catch (e) {
-      print('downloadFile error---------$e');
-    }
-  }
-
-
   //最先加载
   initState() {
-    super.initState(); 
+    super.initState();
     _query('user.db', 'SELECT * FROM speedtest_table');
-    /*const period = const Duration(seconds: 1); //测试过程，速度调大
-    var i=0;
-     Timer.periodic(period, (timer) {
-      //到时回调
-      setState(() {
-        i++;
-        downloadchar=((((point/showtotal)*250)/i)*8).toString().substring(0,5);
-        download=double.parse('$downloadchar');
-      });
-      if (i > 10) {
-        //取消定时器，避免无限回调
-        timer.cancel();
-        timer = null;
-      }
-    }); */
+    _speedtest();
+    /* await SpeedMethod().getDiffyDay();
+    await SpeedMethod().downloadFile().then((value) {
+      print(value);
+      download = value;
+    });
+    setState(() {});
+    await SpeedMethod().uploadFile().then((value) {
+      print(value);
+      upload = value;
+    });
+    setState(() {});
+    SpeedMethod().delete();
+    setState(() {}); */
+  }
+
+  //测速method
+  Future<void> _speedtest() async {
+    await SpeedMethod().getDiffyDay();
+    await SpeedMethod().downloadFile().then((value) {
+      print(value);
+      download = value;
+    });
+    setState(() {});
+    await SpeedMethod().uploadFile().then((value) {
+      print(value);
+      upload = value;
+    });
+    setState(() {});
+    SpeedMethod().delete();
+    setState(() {});
   }
 
   ///增
@@ -141,7 +111,8 @@ class _NEIBUState extends State<NEIBU> {
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateFormat('  kk:mm:ss \n  d MMM y').format(_dateTime);
+    String formattedDate =
+        DateFormat('  kk:mm:ss \n  d MMM y').format(_dateTime);
 
     return Column(
       children: <Widget>[
@@ -377,15 +348,20 @@ class _NEIBUState extends State<NEIBU> {
             child: DashBoard(),
           ),
         ),
-        
+
         //最下边的按钮
         Expanded(
           flex: 2,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(DateFormat.yMMMMd().format(_dateTime),style:TextStyle(color: Colors.white),),
-              SizedBox(width: 10,),
+              Text(
+                DateFormat.yMMMMd().format(_dateTime),
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                width: 10,
+              ),
               RaisedButton(
                 child: Text("INSERT"),
                 color: Color.fromRGBO(78, 201, 176, 1),
